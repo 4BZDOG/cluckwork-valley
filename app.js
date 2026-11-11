@@ -77,14 +77,19 @@
       return vid;
     }
     var big = i === 0;
-    return el("div", { class: "video-frame slot" },
-      '<div><span class="big">' + (big ? "🎬🐔" : "🎥") + "</span>" + (big ? "Fly-through trailer landing soon" : "Coming soon") +
-      "<small>media.js → videos[" + i + "]</small></div>");
+    var posters = ["assets/shots/shot-24.jpg", "assets/shots/shot-21.jpg", "assets/shots/shot-10.jpg", "assets/shots/shot-22.jpg"];
+    var poster = v.poster || posters[i % posters.length];
+    var box = el("div", { class: "video-frame video-soon" + (big ? " big" : "") },
+      '<div class="play" aria-hidden="true">▶</div><div class="soon-label"><span class="pixel">' +
+      (big ? "PREMIERING SOON" : "COMING SOON") + "</span><b>" + esc(v.title) + "</b>" +
+      (big ? "<em>Popcorn status: harvesting… 🍿</em>" : "") + "</div>");
+    box.style.backgroundImage = "url('" + poster + "')";
+    return box;
   }
   (M.videos || []).forEach(function (v, i) {
     var fig = el("figure");
     fig.appendChild(videoNode(v, i));
-    fig.appendChild(el("figcaption", null, esc(v.title)));
+    if (v.youtube || v.file) fig.appendChild(el("figcaption", null, esc(v.title)));
     (i === 0 ? $("videoMain") : $("videoGrid")).appendChild(fig);
   });
 

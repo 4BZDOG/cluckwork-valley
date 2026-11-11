@@ -15,7 +15,8 @@ window.CLUCKWORK_MEDIA = {
      Paste the YouTube *video ID* (the bit after v= in the link), e.g.
      https://www.youtube.com/watch?v=dQw4w9WgXcQ  ->  "dQw4w9WgXcQ"
      Use an UNLISTED upload. Or use "file" with a path to an .mp4 in
-     assets/video/ (keep it under 50 MB).                              */
+     assets/video/ (keep it under 50 MB). Optional: poster: "assets/…jpg"
+     sets the still image shown until a video is added.                */
   videos: [
     { title: "The Grand Fly-Through (official trailer)", youtube: "", file: "" },
     { title: "Chicken Co Tower: 30 floors in 30 seconds", youtube: "", file: "" },
