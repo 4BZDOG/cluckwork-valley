@@ -84,5 +84,33 @@ window.CLUCKWORK_MEDIA = {
     { src: "", caption: "The whiteboard where the Harvest Loop was born" },
     { src: "", caption: "Mid-playtest panic face" },
     { src: "", caption: "Victory pose at the top of Chicken Co" }
+  ],
+
+  /* 🧱 BUILD HISTORY — every saved world, in order --------------------
+     One entry per checkpoint. Summaries only: no student names, no
+     account data, no world files. Dates match the sprint log in the
+     Portfolio (v0.2 22 Oct, v0.3 23 Oct, v0.4 6 Nov).                  */
+  builds: [
+    { label: "v1 · Early prototype", date: "15–22 Sep 2026", status: "Archived",
+      mode: "Creative · peaceful", photos: 0,
+      changes: "The first saved world. Creative mode, peaceful, PvP and LAN off." },
+    { label: "v2 · Lean rebuild", date: "13–15 Oct 2026", status: "Archived",
+      mode: "Creative · peaceful", photos: 0,
+      changes: "About 83 minutes of game time after v1. The save is about a third smaller than v1; the reason is still being checked." },
+    { label: "v0.2 · Scope checkpoint", date: "22 Oct 2026", status: "Archived",
+      mode: "Creative · easy", photos: 68,
+      changes: "About 2 hours of game time added. Documentation photos added (68). Difficulty set to easy, PvP and LAN turned on, new world icon." },
+    { label: "v0.3 · Alpha checkpoint", date: "23 Oct 2026", status: "Archived",
+      mode: "Creative · easy", photos: 68,
+      changes: "About an hour of game time added. Same photos. Multiplayer turned off, new world icon." },
+    { label: "Teleporter copy", date: "23 Oct 2026", status: "Duplicate",
+      mode: "Same as v0.3", photos: 68,
+      changes: "Byte-for-byte identical to v0.3, so no new content. Kept as the command-block teleporter reference." },
+    { label: "v0.4 · Beta checkpoint", date: "27 Oct – 6 Nov 2026", status: "Latest saved",
+      mode: "Survival · easy", photos: 70,
+      changes: "About 3.4 hours of game time added. Two new photos, survival game mode, saved in a newer Minecraft version (1.26.33). The most complete save so far." },
+    { label: "FINAL", date: "13 Nov 2026 (planned)", status: "Planned",
+      mode: "", photos: 0,
+      changes: "Final export and launch of the valley." }
   ]
 };
