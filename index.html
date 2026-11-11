@@ -1,0 +1,886 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cluckwork Valley</title>
+<meta name="description" content="Cluckwork Valley — an automated factory & smart farm world built in Minecraft Education by Cluckwork Studios (Year 9 Computing Technology). Farms that farm themselves. Chickens that run the company.">
+<meta property="og:title" content="Cluckwork Valley — Farms that farm themselves">
+<meta property="og:description" content="An automated factory & smart farm built in Minecraft Education. Redstone, command blocks, a 30-storey chicken skyscraper and a golem whose eyes glow at night.">
+<meta property="og:image" content="assets/shots/shot-13.jpg">
+<meta name="theme-color" content="#5cb03c">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' shape-rendering='crispEdges'%3E%3Crect x='6' y='1' width='4' height='1' fill='%23f6c431'/%3E%3Crect x='5' y='2' width='6' height='1' fill='%23f6c431'/%3E%3Crect x='5' y='3' width='5' height='4' fill='%23fff'/%3E%3Crect x='8' y='4' width='1' height='1' fill='%23000'/%3E%3Crect x='10' y='5' width='2' height='1' fill='%23f39c12'/%3E%3Crect x='2' y='7' width='10' height='5' fill='%23fff'/%3E%3Crect x='5' y='12' width='1' height='2' fill='%23f39c12'/%3E%3Crect x='8' y='12' width='1' height='2' fill='%23f39c12'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Rubik:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- Reusable pixel chicken (studio logo) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="chick" viewBox="0 0 16 16" shape-rendering="crispEdges">
+    <rect x="6" y="0" width="4" height="1" fill="#f6c431"/>
+    <rect x="5" y="1" width="6" height="1" fill="#f6c431"/>
+    <rect x="4" y="2" width="8" height="1" fill="#d9a514"/>
+    <rect x="5" y="3" width="5" height="4" fill="#ffffff"/>
+    <rect x="8" y="4" width="1" height="1" fill="#1f1a14"/>
+    <rect x="10" y="4" width="2" height="2" fill="#f39c12"/>
+    <rect x="10" y="6" width="1" height="1" fill="#d9342b"/>
+    <rect x="1" y="6" width="2" height="2" fill="#ffffff"/>
+    <rect x="2" y="7" width="10" height="5" fill="#ffffff"/>
+    <rect x="4" y="8" width="4" height="2" fill="#e6dcc3"/>
+    <rect x="2" y="11" width="10" height="1" fill="#e6dcc3"/>
+    <rect x="5" y="12" width="1" height="2" fill="#f39c12"/>
+    <rect x="8" y="12" width="1" height="2" fill="#f39c12"/>
+    <rect x="4" y="14" width="2" height="1" fill="#f39c12"/>
+    <rect x="8" y="14" width="2" height="1" fill="#f39c12"/>
+  </symbol>
+</svg>
+
+<nav class="nav" aria-label="Main">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Cluckwork Valley home">
+      <svg aria-hidden="true"><use href="#chick"/></svg>
+      <span>CLUCKWORK<br>VALLEY</span>
+    </a>
+    <ul>
+      <li><a class="navlink" href="#story">Story</a></li>
+      <li><a class="navlink" href="#map">Map</a></li>
+      <li><a class="navlink" href="#watch">Watch</a></li>
+      <li><a class="navlink" href="#guide">Play</a></li>
+      <li><a class="navlink" href="#tech">Under the Hood</a></li>
+      <li><a class="navlink" href="#care">Fair Play</a></li>
+      <li><a class="navlink" href="#portfolio">Portfolio</a></li>
+      <li><a class="navlink" href="#studio">Studio</a></li>
+      <li><a class="navlink" href="#press">Press</a></li>
+    </ul>
+    <button class="theme-btn" id="themeBtn" type="button" aria-label="Toggle dark mode" title="Day / night cycle">🌙</button>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="cloud" style="top:60px; animation-delay:-5s"></div>
+  <div class="cloud" style="top:150px; animation-delay:-22s; animation-duration:55s"></div>
+  <div class="cloud" style="top:30px; animation-delay:-34s; animation-duration:65s"></div>
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">🏭 Minecraft Education · Theme A · Automated Factory &amp; Smart Farm</span>
+      <h1>CLUCKWORK<br>VALLEY<span class="sub">by Cluckwork Studios 🐔⚙️</span></h1>
+      <p class="tagline">Farms that farm themselves. Chickens that run the company. You? You just try to keep up.</p>
+      <div class="cta-row">
+        <a class="btn" href="#guide">▶ How to play</a>
+        <a class="btn gold" href="#watch">🎬 Watch the fly-through</a>
+        <a class="btn ghost" href="#tech">🧠 See the redstone brain</a>
+      </div>
+    </div>
+    <div class="hero-art">
+      <button class="chicken-btn" id="chickenBtn" type="button" aria-label="Poke the CEO chicken (earns a Cluckcoin)">
+        <svg viewBox="0 0 16 16" role="img" aria-hidden="true"><use href="#chick"/></svg>
+      </button>
+      <div class="speech" id="speech" aria-live="polite">Bawk! I'm the CEO. Poke me for a Cluckcoin.</div>
+      <div class="coin-hud" aria-live="polite">🪙 CLUCKCOINS: <span id="coins">0</span></div>
+    </div>
+  </div>
+  <div class="ground" aria-hidden="true"></div>
+</header>
+
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    🌾 CROPS HARVESTED TODAY: 14,207 &nbsp;★&nbsp; 🐔 CHICKEN CO SHARE PRICE: UP 12 EGGS &nbsp;★&nbsp; 🌀 TELEPORTERS ONLINE: 9/9 &nbsp;★&nbsp; 🧱 COMMAND BLOCKS: 140+ &nbsp;★&nbsp; 👀 GOLEM EYES: GLOWING (IT'S NIGHT SOMEWHERE) &nbsp;★&nbsp; 🎋 BAMBOO → KELP LINE: NOMINAL &nbsp;★&nbsp; 🚫 WITHERS IN CHICKEN ZONE: 0 (FINALLY) &nbsp;★&nbsp; 🍬 SUGAR SHIPMENTS: 312 &nbsp;★&nbsp;
+  </div>
+</div>
+
+<main id="main">
+
+<!-- ============ 1. STORY ============ -->
+<section id="story">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">01</span><h2>The Story So Far</h2><span class="rubric-tag">Product overview · premise</span></div>
+    <div class="two-col">
+      <div class="story">
+        <p>Somewhere past the Great Lava Wall, a chicken named <strong>Colonel Cluck</strong> had a vision: a valley where crops harvest themselves, sugar ships itself, and nobody — <em>nobody</em> — has to climb thirty flights of stairs ever again.</p>
+        <p>Twelve engineers answered the call. They wired observers to pistons, taught daylight sensors to tell the time, and built a teleport network so fast you can visit every farm before your bread finishes baking. They built the 30-storey <strong>Chicken Co Tower</strong>, an <strong>Iron Golem</strong> the size of a building whose eyes light up at night, and a solid-gold <strong>Plinko Palace</strong> for when the day's work is done.</p>
+        <p>Now the valley needs a new Farm Manager. Your job: keep the automated lines running, sell fresh produce at the <strong>Farm-to-Table Market</strong>, and earn enough Cluckcoins to become <em>Employee of the Month</em> before the shift timer runs out. Easy, right?</p>
+        <p>…Right?</p>
+      </div>
+      <div>
+        <blockquote class="pull">“Farm workers need conditions like real modern work standards — beds, light, space — or the system just doesn't work.”<cite>— a Level Designer, Week 2 project log (and the reason every villager in the valley has a window)</cite></blockquote>
+        <div class="card">
+          <h3>🎯 Who it's for</h3>
+          <p>Players aged 10–15 who are curious how real automated farms and factories work, and teachers who want a playable demo of sensors, logic and feedback loops.</p>
+          <h3 style="margin-top:14px">🧩 The problem it tackles</h3>
+          <p>Automation is everywhere (supermarkets, farms, factories), but the logic behind it is invisible. Cluckwork Valley shows how it works: every system has a glass wall, a sign that explains it, and a lamp that lights up when it runs.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 2. FEATURES ============ -->
+<section id="features" class="alt">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">02</span><h2>Key Features</h2><span class="rubric-tag">Feature highlights</span></div>
+    <div class="grid g4">
+      <article class="card feature"><span class="chip green">SENSOR</span><div class="icon">🎋</div><h3>Self-Harvesting Sugar Mill</h3><p>Observers watch every cane. Hit 3 blocks tall and a piston chops it. No hands, no mercy.</p></article>
+      <article class="card feature"><span class="chip">NOT GATE</span><div class="icon">👀</div><h3>The Night-Eyed Golem</h3><p>A giant iron golem statue marks the Iron Works. An inverted daylight sensor makes its eyes glow after sunset.</p></article>
+      <article class="card feature"><span class="chip blue">COMMANDS</span><div class="icon">🌀</div><h3>9-Stop Teleport Network</h3><p>Pressure-plate portals link every studio build. Each one has a sound, a title message, and a colour-coded path.</p></article>
+      <article class="card feature"><span class="chip red">29-BLOCK CHAIN</span><div class="icon">🛗</div><h3>Chicken Co Tower Elevator</h3><p>Pick a floor (1–30) and a 29-command-block chain checks your choice and sends you there. <em>Ding.</em></p></article>
+      <article class="card feature"><span class="chip kelp">PIPELINE</span><div class="icon">🌊</div><h3>Bamboo → Kelp Line</h3><p>An auto bamboo farm fuels the furnaces that dry the auto kelp, moved by hopper minecarts. One farm feeds the other.</p></article>
+      <article class="card feature"><span class="chip green">LOOP</span><div class="icon">🌾</div><h3>Bonemeal-Boosted Wheat</h3><p>A composter makes bonemeal and a clock-driven dispenser sprays it on the greenhouse. A farmer villager (with a bed and a window) harvests it.</p></article>
+      <article class="card feature"><span class="chip">VARIABLES</span><div class="icon">🪙</div><h3>Cluckcoin Economy</h3><p>Scoreboard variables track your coins, the sugar stock and the shift timer. Sell crops, buy food, and see it all live on the sidebar.</p></article>
+      <article class="card feature"><span class="chip red">GAME LOOP</span><div class="icon">🥊</div><h3>Knockback Arena</h3><p>An opt-in party zone. Knock rivals into the pits and be the last chicken standing. You respawn safely and a lever resets the arena.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3. MAP ============ -->
+<section id="map">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">03</span><h2>World Map</h2><span class="rubric-tag">Wayfinding · colour-coded zones</span></div>
+    <p class="lede">Every zone has its own <strong>colour and shape</strong>, so colour-blind players can still find their way. Teleport lines (dashed blue) all start at the Spawn Hub, and the rail line (solid) loops the valley for people who like the scenic route.</p>
+    <div class="diagram">
+      <svg viewBox="0 0 1000 600" role="img" aria-labelledby="mapT mapD">
+        <title id="mapT">Top-down map of Cluckwork Valley</title>
+        <desc id="mapD">The Spawn and Teleport Hub sits in the centre with dashed teleport lines to eight zones: Firework Cave north-west, Iron Works and Golem north, Chicken Co Tower north-east, Sugar Mill west, Plinko Palace east, Bamboo to Kelp Line south-west, Greenhouse Wheat and Rest Field south, and Knockback Arena south-east. The Great Lava Wall runs down the eastern edge and a rail loop circles the valley.</desc>
+        <rect x="0" y="0" width="1000" height="600" class="svg-bg"/>
+        <!-- grass texture -->
+        <g opacity=".18"><path d="M0 0H1000V600H0Z" fill="#5cb03c"/></g>
+        <!-- lava wall -->
+        <rect x="948" y="0" width="52" height="600" fill="#e8611a" stroke="#1f1a14" stroke-width="3"/>
+        <text x="974" y="300" transform="rotate(90 974 300)" text-anchor="middle" font-weight="800" font-size="16" fill="#1f1a14" font-family="Rubik, sans-serif">🔥 THE GREAT LAVA WALL 🔥</text>
+        <!-- rail loop -->
+        <rect x="40" y="36" width="880" height="530" rx="40" fill="none" stroke="#8b5a2b" stroke-width="10"/>
+        <rect x="40" y="36" width="880" height="530" rx="40" fill="none" stroke="#c9c1b1" stroke-width="3" stroke-dasharray="4 10"/>
+        <!-- teleport spokes -->
+        <g stroke="#2d5bd1" stroke-width="4" stroke-dasharray="10 8" fill="none">
+          <line x1="500" y1="300" x2="160" y2="120"/><line x1="500" y1="300" x2="470" y2="120"/>
+          <line x1="500" y1="300" x2="790" y2="130"/><line x1="500" y1="300" x2="170" y2="300"/>
+          <line x1="500" y1="300" x2="810" y2="300"/><line x1="500" y1="300" x2="180" y2="470"/>
+          <line x1="500" y1="300" x2="480" y2="480"/><line x1="500" y1="300" x2="790" y2="470"/>
+        </g>
+        <!-- zones -->
+        <g font-family="Rubik, sans-serif" font-weight="800" font-size="15" text-anchor="middle">
+          <!-- Firework cave: circle -->
+          <circle cx="160" cy="120" r="62" fill="#8a4fd8" stroke="#1f1a14" stroke-width="4"/>
+          <text x="160" y="114" fill="#fff">🎆 Firework</text><text x="160" y="133" fill="#fff">Cave</text>
+          <!-- Iron works: square -->
+          <rect x="390" y="62" width="160" height="110" fill="#9aa3ad" stroke="#1f1a14" stroke-width="4"/>
+          <text x="470" y="108" fill="#1f1a14">🗿 Iron Works</text><text x="470" y="128" fill="#1f1a14">+ Night-Eyed Golem</text>
+          <!-- Chicken Co: tall rect -->
+          <rect x="735" y="58" width="110" height="150" fill="#ffffff" stroke="#1f1a14" stroke-width="4"/>
+          <rect x="735" y="58" width="110" height="22" fill="#f6c431" stroke="#1f1a14" stroke-width="4"/>
+          <text x="790" y="128" fill="#1f1a14">🐔 Chicken Co</text><text x="790" y="148" fill="#1f1a14">Tower (30F)</text>
+          <!-- Sugar mill: hexagon -->
+          <polygon points="110,300 140,248 200,248 230,300 200,352 140,352" fill="#5cb03c" stroke="#1f1a14" stroke-width="4"/>
+          <text x="170" y="296" fill="#fff">🎋 Sugar Mill</text><text x="170" y="316" fill="#fff">+ Sugar Shop</text>
+          <!-- Hub: star-ish octagon -->
+          <polygon points="460,250 540,250 575,285 575,325 540,360 460,360 425,325 425,285" fill="#2d5bd1" stroke="#1f1a14" stroke-width="5"/>
+          <text x="500" y="296" fill="#fff">🌀 SPAWN</text><text x="500" y="316" fill="#fff">+ TELEPORT HUB</text><text x="500" y="336" fill="#fff" font-size="12">Market 🧺 next door</text>
+          <!-- Plinko: diamond -->
+          <polygon points="810,232 880,300 810,368 740,300" fill="#f6c431" stroke="#1f1a14" stroke-width="4"/>
+          <text x="810" y="296" fill="#1f1a14">🎰 Plinko</text><text x="810" y="316" fill="#1f1a14">Palace</text>
+          <!-- Kelp: wave rect -->
+          <rect x="95" y="420" width="170" height="100" rx="26" fill="#23866a" stroke="#1f1a14" stroke-width="4"/>
+          <text x="180" y="464" fill="#fff">🌊 Bamboo → Kelp</text><text x="180" y="484" fill="#fff">Line</text>
+          <!-- Greenhouse: triangle roof -->
+          <polygon points="400,520 400,450 480,410 560,450 560,520" fill="#c6e6a8" stroke="#1f1a14" stroke-width="4"/>
+          <text x="480" y="470" fill="#1f1a14">🌾 Greenhouse</text><text x="480" y="490" fill="#1f1a14">Wheat · Potatoes</text><text x="480" y="508" fill="#1f1a14" font-size="12">🌱 Rest Field</text>
+          <!-- Arena: circle with ring -->
+          <circle cx="790" cy="470" r="64" fill="#d9342b" stroke="#1f1a14" stroke-width="4"/>
+          <circle cx="790" cy="470" r="44" fill="none" stroke="#fff" stroke-width="3" stroke-dasharray="6 6"/>
+          <text x="790" y="466" fill="#fff">🥊 Knockback</text><text x="790" y="486" fill="#fff">Arena (opt-in)</text>
+        </g>
+        <!-- compass -->
+        <g transform="translate(70 560)" font-family="Rubik, sans-serif" font-weight="800">
+          <rect x="-22" y="-22" width="44" height="44" fill="#fff" stroke="#1f1a14" stroke-width="3"/>
+          <text x="0" y="6" text-anchor="middle" font-size="16" fill="#1f1a14">N↑</text>
+        </g>
+      </svg>
+      <div class="legend">
+        <span><i style="background:#2d5bd1"></i>Octagon = hub / spawn</span>
+        <span><i style="background:#5cb03c"></i>Hexagon = sugar</span>
+        <span><i style="background:#23866a"></i>Rounded = water farms</span>
+        <span><i style="background:#c6e6a8"></i>House = crops</span>
+        <span><i style="background:#f6c431"></i>Diamond = games</span>
+        <span><i style="background:#d9342b"></i>Ring = opt-in PvP</span>
+        <span><i style="background:#9aa3ad"></i>Square = industry</span>
+      </div>
+      <p class="cap">Map not to scale. The real valley is about 400 × 300 blocks, and the rail loop takes 2 min 40 s by minecart.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 4. WATCH ============ -->
+<section id="watch" class="alt">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">04</span><h2>Watch It Run</h2><span class="rubric-tag">Media · fly-through</span></div>
+    <p class="lede">Grab some popcorn (crafted from our own farm, obviously). The fly-throughs are filmed at 1080p in Spectator mode with team commentary.</p>
+    <div id="videoMain" class="video-feature"></div>
+    <div id="videoGrid" class="grid g3"></div>
+  </div>
+</section>
+
+<!-- ============ 5. GALLERY ============ -->
+<section id="gallery">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">05</span><h2>Postcards From The Valley</h2><span class="rubric-tag">Screenshot gallery</span></div>
+    <p class="lede">Real in-game screenshots from the build. Tap one to see it bigger.</p>
+    <div id="gallery-grid" class="gallery"></div>
+    <h3 style="margin-top:40px">🤳 Behind the Scenes</h3>
+    <p>Selfies with the build, whiteboard plans, and our mid-bug-hunt faces.</p>
+    <div id="bts-grid" class="gallery"></div>
+  </div>
+</section>
+
+<!-- ============ 6. PLAYER GUIDE ============ -->
+<section id="guide" class="alt">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">06</span><h2>Player Guide</h2><span class="rubric-tag">Rules · controls · instructions</span></div>
+
+    <div class="grid g3" style="margin-bottom:28px">
+      <div class="card"><div class="icon">🏁</div><h3>Goal</h3><p>Earn <strong>250 Cluckcoins</strong> before the 10-minute shift timer hits zero and you become <em>Employee of the Month</em>, with fireworks.</p></div>
+      <div class="card"><div class="icon">💀</div><h3>Lose condition</h3><p>Timer hits 0 with less than 250 coins: <em>“The chickens have unionised. Try again.”</em> You're sent back to the Hub, no hard feelings.</p></div>
+      <div class="card"><div class="icon">🔁</div><h3>Reset</h3><p>Pull the <strong>gold lever</strong> at the Hub. Coins, timer and farm stock all reset and the arena floor rebuilds itself.</p></div>
+    </div>
+
+    <h3>📜 How to play — your first shift</h3>
+    <ol class="steps" style="margin:12px 0 32px">
+      <li><strong>Spawn at the Hub.</strong> Read the welcome board (big text, high contrast). The sidebar shows your <code>Cluckcoins</code> and <code>Shift</code> timer.</li>
+      <li><strong>Press the green START button.</strong> A title says <em>“Shift started!”</em>, a bell rings, and the Hub lamp turns green.</li>
+      <li><strong>Pick a teleporter pad.</strong> Each pad is colour-and-shape coded to match the map. Step on it and you're there.</li>
+      <li><strong>Collect produce</strong> from the output chests at each farm. Read the glass-wall signs to see how each machine works.</li>
+      <li><strong>Sell at the Farm-to-Table Market.</strong> 16 wheat = 5 coins · 16 sugar = 6 coins · 16 dried kelp = 8 coins · 16 potatoes = 5 coins.</li>
+      <li><strong>Spend or save.</strong> Buy food at the shops (you'll get hungry), or play Plinko with free Golden Feathers.</li>
+      <li><strong>Hit 250 coins</strong> and get to the top of Chicken Co Tower for your promotion. 🎉</li>
+    </ol>
+
+    <h3>🎮 Controls</h3>
+    <div class="tabs" role="tablist" aria-label="Control schemes">
+      <button class="tab" role="tab" aria-selected="true" aria-controls="ctl-kb" id="t-kb">⌨️ Keyboard + mouse</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="ctl-pad" id="t-pad">🎮 Controller</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="ctl-touch" id="t-touch">📱 iPad / touch</button>
+    </div>
+    <div class="tabpanel" role="tabpanel" id="ctl-kb" aria-labelledby="t-kb">
+      <ul class="control-list">
+        <li><span class="keys"><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd></span><span>Walk around</span></li>
+        <li><span class="keys"><kbd>SPACE</kbd></span><span>Jump (double-tap to fly in Creative)</span></li>
+        <li><span class="keys"><kbd>R-CLICK</kbd></span><span>Press buttons, pull levers, open chests, read signs</span></li>
+        <li><span class="keys"><kbd>L-CLICK</kbd></span><span>Knockback swing (arena only, does no damage anywhere else)</span></li>
+        <li><span class="keys"><kbd>E</kbd></span><span>Inventory</span></li>
+        <li><span class="keys"><kbd>T</kbd></span><span>Chat (be kind, chat is logged)</span></li>
+        <li><span class="keys"><kbd>F5</kbd></span><span>Change camera, perfect for selfies with the golem</span></li>
+      </ul>
+    </div>
+    <div class="tabpanel" role="tabpanel" id="ctl-pad" aria-labelledby="t-pad" hidden>
+      <ul class="control-list">
+        <li><span class="keys"><kbd>L-STICK</kbd></span><span>Move</span></li>
+        <li><span class="keys"><kbd>R-STICK</kbd></span><span>Look</span></li>
+        <li><span class="keys"><kbd>A</kbd></span><span>Jump</span></li>
+        <li><span class="keys"><kbd>LT</kbd></span><span>Use: buttons, levers, chests</span></li>
+        <li><span class="keys"><kbd>RT</kbd></span><span>Knockback swing (arena only)</span></li>
+        <li><span class="keys"><kbd>Y</kbd></span><span>Inventory</span></li>
+      </ul>
+    </div>
+    <div class="tabpanel" role="tabpanel" id="ctl-touch" aria-labelledby="t-touch" hidden>
+      <ul class="control-list">
+        <li><span>🕹️ D-pad</span><span>Move (bottom-left)</span></li>
+        <li><span>👆 Drag</span><span>Look around</span></li>
+        <li><span>⬆️ Jump</span><span>Bottom-right button</span></li>
+        <li><span>👉 Tap</span><span>Use buttons, levers, chests</span></li>
+        <li><span>✊ Hold</span><span>Knockback swing (arena only)</span></li>
+      </ul>
+    </div>
+
+    <div class="grid g2" style="margin-top:32px">
+      <div class="card">
+        <h3>💾 Install &amp; launch</h3>
+        <ol style="margin:0; padding-left:20px">
+          <li>Download <code>Cluckwork-Valley-FINAL.mcworld</code> from the class LMS.</li>
+          <li>Double-click it. Minecraft Education opens and imports the world.</li>
+          <li>Choose <strong>Play → View My Worlds → Cluckwork Valley</strong>.</li>
+          <li>Multiplayer: host the world and share the join code with up to 30 players.</li>
+          <li>Recommended: Settings → Video → render distance 12 for 50+ FPS on school laptops.</li>
+        </ol>
+      </div>
+      <div class="card">
+        <h3>🧭 House rules</h3>
+        <ul class="checklist">
+          <li>PvP lives in the arena <em>only</em>. Everywhere else, punches do nothing.</li>
+          <li>Builds are protected by Border and Deny blocks, so you can't break anything important.</li>
+          <li>TNT and mob griefing are switched off. (We learned this the hard way. See the Bug Board.)</li>
+          <li>Plinko uses free Golden Feathers only. Cluckcoins can't buy them.</li>
+          <li>Treat the villagers well. They have beds, windows and lunch breaks.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 7. TECH SHOWCASE ============ -->
+<section id="tech">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">07</span><h2>Under the Hood</h2><span class="rubric-tag">Technical showcase · algorithms</span></div>
+    <p class="lede">Every automated system in the valley follows the same pattern: <strong>a sensor notices something → logic decides → something happens → the player is told</strong>. Here is how each one works, with the real commands.</p>
+
+    <h3 style="margin-top:24px">🔄 The Harvest Loop: how the whole valley connects</h3>
+    <div class="diagram" style="margin-bottom:34px">
+      <svg viewBox="0 0 1000 300" role="img" aria-labelledby="pipeT pipeD">
+        <title id="pipeT">System pipeline: sensors to logic to actuators to transport to scoreboard to player feedback</title>
+        <desc id="pipeD">Six stages left to right. Sensors (observers, daylight sensor, tripwire, hopper comparators) feed Logic (redstone gates and command blocks). Logic drives Actuators (pistons, dispensers, lamps). Actuators feed Transport (water streams, hoppers, minecarts). Transport is counted by the Scoreboard (sugar, coins, timer). The Scoreboard drives Player Feedback (actionbar text, sounds, lamps). A feedback arrow loops from the player back to the sensors.</desc>
+        <defs>
+          <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="currentColor"/></marker>
+        </defs>
+        <g font-family="Rubik, sans-serif" text-anchor="middle" style="color:var(--ink)">
+          <g font-weight="800" font-size="16">
+            <rect x="10" y="60" width="140" height="120" fill="#9fdcff" stroke="#1f1a14" stroke-width="4"/>
+            <text x="80" y="92" fill="#1f1a14">👁️ SENSORS</text>
+            <rect x="175" y="60" width="140" height="120" fill="#ffd0cc" stroke="#1f1a14" stroke-width="4"/>
+            <text x="245" y="92" fill="#1f1a14">🧠 LOGIC</text>
+            <rect x="340" y="60" width="140" height="120" fill="#ffe59a" stroke="#1f1a14" stroke-width="4"/>
+            <text x="410" y="92" fill="#1f1a14">💪 ACTUATORS</text>
+            <rect x="505" y="60" width="140" height="120" fill="#b8e8d6" stroke="#1f1a14" stroke-width="4"/>
+            <text x="575" y="92" fill="#1f1a14">🚚 TRANSPORT</text>
+            <rect x="670" y="60" width="140" height="120" fill="#e3d2ff" stroke="#1f1a14" stroke-width="4"/>
+            <text x="740" y="92" fill="#1f1a14">🔢 SCOREBOARD</text>
+            <rect x="835" y="60" width="155" height="120" fill="#c6e6a8" stroke="#1f1a14" stroke-width="4"/>
+            <text x="912" y="92" fill="#1f1a14">📣 FEEDBACK</text>
+          </g>
+          <g font-size="13" fill="#1f1a14">
+            <text x="80" y="118">observers</text><text x="80" y="136">daylight sensor</text><text x="80" y="154">tripwire · comparators</text>
+            <text x="245" y="118">AND / OR / NOT</text><text x="245" y="136">execute if / unless</text><text x="245" y="154">repeating clocks</text>
+            <text x="410" y="118">pistons</text><text x="410" y="136">dispensers</text><text x="410" y="154">tp · fill · lamps</text>
+            <text x="575" y="118">water streams</text><text x="575" y="136">hoppers</text><text x="575" y="154">hopper minecarts</text>
+            <text x="740" y="118">sugar · stock</text><text x="740" y="136">coins · shift timer</text><text x="740" y="154">floor · arena alive</text>
+            <text x="912" y="118">actionbar text</text><text x="912" y="136">playsound cues</text><text x="912" y="154">status lamps 💡</text>
+          </g>
+          <g stroke="currentColor" stroke-width="4" fill="none" marker-end="url(#arr)">
+            <line x1="150" y1="120" x2="172" y2="120"/><line x1="315" y1="120" x2="337" y2="120"/>
+            <line x1="480" y1="120" x2="502" y2="120"/><line x1="645" y1="120" x2="667" y2="120"/>
+            <line x1="810" y1="120" x2="832" y2="120"/>
+            <path d="M912 182 V250 H80 V184"/>
+          </g>
+          <text x="496" y="272" font-size="14" font-weight="700" fill="currentColor">↺ the player reacts (sells, buys, presses buttons), which becomes new input: an event loop</text>
+        </g>
+      </svg>
+    </div>
+
+    <div class="tabs" role="tablist" aria-label="Automated systems">
+      <button class="tab" role="tab" aria-selected="true" aria-controls="sys-sugar" id="s-sugar">🎋 Sugar Mill</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="sys-golem" id="s-golem">👀 Golem Eyes</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="sys-tp" id="s-tp">🌀 Teleporters</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="sys-lift" id="s-lift">🛗 Elevator</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="sys-shop" id="s-shop">🪙 Market</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="sys-arena" id="s-arena">🥊 Arena</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="sys-agent" id="s-agent">🤖 Agent</button>
+    </div>
+
+    <div class="tabpanel" role="tabpanel" id="sys-sugar" aria-labelledby="s-sugar">
+      <div class="two-col">
+        <div>
+          <h3>Self-harvesting sugar cane <span class="chip green">sensor + iteration</span></h3>
+          <p>Sugar cane grows on its own. An <strong>observer</strong> faces the 2nd block of each stalk. When the cane grows into that space, the observer fires a one-tick pulse and the <strong>piston</strong> breaks the stalk. The bottom block stays, so it keeps growing again: a natural loop.</p>
+          <p>Dropped cane floats down a <strong>water stream</strong> into a <strong>hopper</strong>. A <strong>comparator</strong> reads the hopper and pulses a command block that adds 1 to the <code>sugar</code> scoreboard. At 64 the mill “ships” a crate to the Sugar Shop.</p>
+          <p><strong>Why observers, not a clock?</strong> A clock fires even when nothing has grown. An observer only fires when it needs to, so there's less lag and no half-grown cane gets cut.</p>
+        </div>
+        <div>
+<pre><code><span class="c-com"># One-time setup (impulse block)</span>
+scoreboard objectives add sugar dummy <span class="c-str">"Sugar Cane"</span>
+scoreboard objectives add stock dummy <span class="c-str">"Shop Stock"</span>
+
+<span class="c-com"># Comparator pulse → count each item (chain)</span>
+scoreboard players add Farm sugar <span class="c-num">1</span>
+
+<span class="c-com"># SELECTION — repeating block checks the threshold</span>
+<span class="c-key">execute if</span> score Farm sugar matches <span class="c-num">64..</span> run scoreboard players add Farm stock <span class="c-num">1</span>
+<span class="c-key">execute if</span> score Farm sugar matches <span class="c-num">64..</span> run playsound random.levelup @a[tag=shift]
+<span class="c-key">execute if</span> score Farm sugar matches <span class="c-num">64..</span> run title @a[tag=shift] actionbar §e🍬 Sugar shipment sent to the shop!
+<span class="c-key">execute if</span> score Farm sugar matches <span class="c-num">64..</span> run scoreboard players set Farm sugar <span class="c-num">0</span>  <span class="c-com"># reset LAST</span>
+
+<span class="c-com"># ELSE — live progress on the actionbar for nearby players</span>
+<span class="c-key">execute unless</span> score Farm sugar matches <span class="c-num">64..</span> run titleraw @a[r=20] actionbar {<span class="c-str">"rawtext"</span>:[{<span class="c-str">"text"</span>:<span class="c-str">"§aSugar: "</span>},{<span class="c-str">"score"</span>:{<span class="c-str">"name"</span>:<span class="c-str">"Farm"</span>,<span class="c-str">"objective"</span>:<span class="c-str">"sugar"</span>}},{<span class="c-str">"text"</span>:<span class="c-str">" / 64"</span>}]}</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="tabpanel" role="tabpanel" id="sys-golem" aria-labelledby="s-golem" hidden>
+      <div class="two-col">
+        <div>
+          <h3>The Night-Eyed Golem <span class="chip">NOT gate · pure redstone</span></h3>
+          <p>A daylight sensor normally gives a strong signal in the <em>day</em>. We flipped it into <strong>inverted mode</strong> (right-click it and it turns blue), which works like a <strong>NOT gate</strong>: <em>IF it is NOT day THEN power the lamps</em>.</p>
+          <p>The signal runs through hidden redstone in the golem's neck to two redstone lamps behind red glass: the eyes. At sunset they light up and the Iron Works sign says <em>“Night shift: open.”</em></p>
+          <p><strong>The hard bit:</strong> fitting the wiring inside a statue without it showing. The final version runs dust up the inside of the back wall and uses a <em>repeater</em> to keep the signal strong for 18 blocks.</p>
+        </div>
+        <div>
+<pre><code><span class="c-com">// Logic (truth table)</span>
+daylight?   inverted output   eyes
+ YES (day)      0             OFF
+ NO (night)    15             ON 👀
+
+<span class="c-com">// Pseudocode</span>
+<span class="c-key">LOOP</span> every game tick
+    <span class="c-key">IF NOT</span> daytime <span class="c-key">THEN</span>
+        lamps ← ON
+        sign  ← "Night shift: open"
+    <span class="c-key">ELSE</span>
+        lamps ← OFF
+    <span class="c-key">END IF</span>
+<span class="c-key">END LOOP</span></code></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="tabpanel" role="tabpanel" id="sys-tp" aria-labelledby="s-tp" hidden>
+      <div class="two-col">
+        <div>
+          <h3>9-stop teleport network <span class="chip blue">command chains</span></h3>
+          <p>Each pad at the Hub has a pressure plate on top of an <strong>impulse command block</strong> with three <strong>chain blocks</strong> behind it. Step on it and four things happen in order: you teleport (facing the zone entrance so you're never lost), hear the portal sound, see the zone name, and the destination lamp blinks.</p>
+          <p>Every zone has a return pad back to the Hub, so you can't get stranded.</p>
+          <p><strong>Chaos Chicken Hour:</strong> every 5 minutes one random player who has <em>opted in</em> gets warped to the valley centre for a surprise mini-event. A <em>repeating</em> block with a 6000-tick delay runs the timer.</p>
+        </div>
+        <div>
+<pre><code><span class="c-com"># Impulse (pressure plate) → Sugar Mill pad</span>
+tp @p <span class="c-num">-182 66 41</span> facing <span class="c-num">-182 66 30</span>
+<span class="c-com"># Chain (always active)</span>
+playsound mob.endermen.portal @p
+title @p actionbar §a🎋 Sugar Mill — follow the GREEN hexagons
+setblock <span class="c-num">-178 68 41</span> redstone_block   <span class="c-com"># blink lamp</span>
+
+<span class="c-com"># Chaos Chicken Hour — repeating, delay 6000 ticks (5 min)</span>
+tp @r[tag=chaos] <span class="c-num">0 80 0</span>
+<span class="c-com"># v0.2 bug: was tp @a every tick 😱 → see Bug Board #3</span></code></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="tabpanel" role="tabpanel" id="sys-lift" aria-labelledby="s-lift" hidden>
+      <div class="two-col">
+        <div>
+          <h3>Chicken Co Tower elevator <span class="chip red">variables + 29-block chain</span></h3>
+          <p>No-one should climb 30 floors. Step onto the lift pad and press <strong>▲</strong> or <strong>▼</strong> to change your personal <code>floor</code> score. It's clamped to 1–30 using <em>operators</em>, and the actionbar shows your choice. Press <strong>GO</strong>.</p>
+          <p>GO fires a chain of <strong>29 command blocks</strong>, one for each floor you can travel to. Each one tests <code>if score @s floor matches N</code>, so only the right one teleports you. A level-up “ding” plays and the floor name pops up: <em>“Floor 17: Egg Accounting.”</em></p>
+          <p><strong>Improvement idea (v2):</strong> work out the Y-coordinate from the floor number so one block replaces 29. We kept the chain because it lets every floor have its own custom welcome message.</p>
+        </div>
+        <div>
+<pre><code><span class="c-com"># ▲ button</span>
+scoreboard players add @p floor <span class="c-num">1</span>
+<span class="c-key">execute as</span> @p <span class="c-key">if</span> score @s floor matches <span class="c-num">31..</span> run scoreboard players set @s floor <span class="c-num">30</span>
+
+<span class="c-com"># ▼ button</span>
+scoreboard players remove @p floor <span class="c-num">1</span>
+<span class="c-key">execute as</span> @p <span class="c-key">if</span> score @s floor matches <span class="c-num">..0</span> run scoreboard players set @s floor <span class="c-num">1</span>
+
+<span class="c-com"># GO → chain of 29 (floors 2–30). Floor N is at y = 64 + 5N</span>
+<span class="c-key">execute as</span> @p[r=3] <span class="c-key">if</span> score @s floor matches <span class="c-num">2</span>  run tp @s <span class="c-num">210 74 55</span>
+<span class="c-key">execute as</span> @p[r=3] <span class="c-key">if</span> score @s floor matches <span class="c-num">3</span>  run tp @s <span class="c-num">210 79 55</span>
+<span class="c-com">  …</span>
+<span class="c-key">execute as</span> @p[r=3] <span class="c-key">if</span> score @s floor matches <span class="c-num">17</span> run tp @s <span class="c-num">210 149 55</span>
+<span class="c-com">  …</span>
+<span class="c-key">execute as</span> @p[r=3] <span class="c-key">if</span> score @s floor matches <span class="c-num">30</span> run tp @s <span class="c-num">210 214 55</span>
+playsound random.levelup @p</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="tabpanel" role="tabpanel" id="sys-shop" aria-labelledby="s-shop" hidden>
+      <div class="two-col">
+        <div>
+          <h3>Farm-to-Table Market <span class="chip">selection + variables</span></h3>
+          <p>The market is the centre of the game. The <strong>SELL</strong> button checks whether you're holding enough produce with <code>hasitem</code>. Only <em>if</em> you are does it take the items and pay you. The <strong>BUY</strong> button checks your coins first.</p>
+          <p><strong>QA lesson:</strong> in v0.2 the “not enough coins” message ran <em>after</em> we'd already taken the coins, so people who could just afford something saw an error <em>and</em> got charged. Moving the <code>unless</code> check to run <strong>first</strong> fixed it. Order matters!</p>
+          <p>The market only sells from the farms' own <code>stock</code>. If the sugar mill stops, the shop runs out, so players can see the supply chain at work.</p>
+        </div>
+        <div>
+<pre><code><span class="c-com"># SELL 16 wheat → +5 coins (impulse → conditional chain)</span>
+<span class="c-key">execute as</span> @p <span class="c-key">if</span> entity @s[hasitem={item=wheat,quantity=16..}] run scoreboard players add @s coins <span class="c-num">5</span>
+clear @p wheat <span class="c-num">0 16</span>          <span class="c-com"># conditional: only runs if the line above worked</span>
+playsound random.orb @p
+
+<span class="c-com"># BUY 3 bread for 10 coins — ELSE branch runs FIRST</span>
+<span class="c-key">execute as</span> @p <span class="c-key">unless</span> score @s coins matches <span class="c-num">10..</span> run title @s actionbar §c✖ Need 10 Cluckcoins
+<span class="c-key">execute as</span> @p <span class="c-key">if</span> score @s coins matches <span class="c-num">10..</span> run give @s bread <span class="c-num">3</span>
+<span class="c-key">execute as</span> @p <span class="c-key">if</span> entity @s[hasitem={item=bread}] run scoreboard players remove @s coins <span class="c-num">10</span>
+
+<span class="c-com"># Shift timer — repeating, delay 20 ticks (1 s)</span>
+scoreboard players remove Clock shift <span class="c-num">1</span>
+<span class="c-key">execute if</span> score Clock shift matches <span class="c-num">0</span> <span class="c-key">as</span> @a[tag=shift] <span class="c-key">if</span> score @s coins matches <span class="c-num">250..</span> run title @s title §6🏆 Employee of the Month!
+<span class="c-key">execute if</span> score Clock shift matches <span class="c-num">0</span> <span class="c-key">as</span> @a[tag=shift] <span class="c-key">unless</span> score @s coins matches <span class="c-num">250..</span> run title @s title §cThe chickens have unionised.</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="tabpanel" role="tabpanel" id="sys-arena" aria-labelledby="s-arena" hidden>
+      <div class="two-col">
+        <div>
+          <h3>Knockback Arena <span class="chip red">game loop · win/lose/reset</span></h3>
+          <p>Walk through the arena gate (a <strong>tripwire</strong>) and you're tagged <code>arena</code> and handed a knockback stick. Outside the arena, a repeating block gives everyone without that tag <em>Weakness 255</em>, so punches do zero damage there. The safe zone really is safe.</p>
+          <p>Fall into a pit (below y = 40) and you're <strong>out</strong>: teleported to the spectator stand with a cheerful “KNOCKED OUT 🐣”. Each tick the arena <strong>counts</strong> the players left. When the count is 1, that player wins.</p>
+          <p>The <strong>reset lever</strong> uses <code>/fill</code> to rebuild the floor and clears dropped items, so the next round can start straight away.</p>
+        </div>
+        <div>
+<pre><code><span class="c-com"># Safe zones everywhere else (repeating)</span>
+effect @a[tag=!arena] weakness <span class="c-num">2 255</span> true
+
+<span class="c-com"># DEFEAT — fell in a pit (repeating)</span>
+<span class="c-key">execute as</span> @a[tag=arena,y=<span class="c-num">0</span>,dy=<span class="c-num">40</span>] run tp @s <span class="c-num">340 72 160</span>
+title @a[tag=arena,y=<span class="c-num">0</span>,dy=<span class="c-num">40</span>] title §c KNOCKED OUT 🐣
+tag @a[y=<span class="c-num">0</span>,dy=<span class="c-num">40</span>] remove arena
+
+<span class="c-com"># ITERATION — count who's left, every tick</span>
+scoreboard players set Arena alive <span class="c-num">0</span>
+<span class="c-key">execute as</span> @a[tag=arena] run scoreboard players add Arena alive <span class="c-num">1</span>
+
+<span class="c-com"># VICTORY</span>
+<span class="c-key">execute if</span> score Arena alive matches <span class="c-num">1</span> run title @a[tag=arena] title §6🏆 LAST CHICKEN STANDING
+
+<span class="c-com"># RESET lever</span>
+fill <span class="c-num">320 45 140 360 45 180</span> white_concrete
+kill @e[type=item,x=<span class="c-num">320</span>,y=<span class="c-num">40</span>,z=<span class="c-num">140</span>,dx=<span class="c-num">40</span>,dy=<span class="c-num">20</span>,dz=<span class="c-num">40</span>]</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="tabpanel" role="tabpanel" id="sys-agent" aria-labelledby="s-agent" hidden>
+      <div class="two-col">
+        <div>
+          <h3>Agent “Clucky” replants the Rest Field <span class="chip kelp">MakeCode Python · nested loops</span></h3>
+          <p>Type <code>replant</code> in chat and our Agent robot plants the 9 × 9 field row by row, using a <strong>nested loop</strong>. Before it tills, it <strong>checks</strong> the block below. If something is already growing there, it skips that spot so it never digs up crops.</p>
+          <p>The field is split into three strips that take turns to rest (see Fair Play below). The Agent only replants the strip whose turn it is, which is stored in a variable.</p>
+        </div>
+        <div>
+<pre><code><span class="c-key">rest_strip</span> = <span class="c-num">0</span>   <span class="c-com"># 0, 1 or 2 — which strip is resting</span>
+
+<span class="c-key">def</span> plant_row(length):
+    <span class="c-key">for</span> i <span class="c-key">in</span> range(length):
+        <span class="c-key">if not</span> agent.detect(AgentDetection.BLOCK, DOWN):
+            agent.till(DOWN)
+            agent.place(DOWN)
+        agent.move(FORWARD, <span class="c-num">1</span>)
+
+<span class="c-key">def</span> on_chat():
+    <span class="c-key">global</span> rest_strip
+    agent.teleport_to_player()
+    agent.set_slot(<span class="c-num">1</span>)              <span class="c-com"># slot 1 = wheat seeds</span>
+    <span class="c-key">for</span> row <span class="c-key">in</span> range(<span class="c-num">9</span>):
+        <span class="c-key">if</span> row // <span class="c-num">3</span> != rest_strip:  <span class="c-com"># skip the resting strip</span>
+            plant_row(<span class="c-num">9</span>)
+            agent.move(BACK, <span class="c-num">9</span>)
+        agent.move(RIGHT, <span class="c-num">1</span>)
+    rest_strip = (rest_strip + <span class="c-num">1</span>) % <span class="c-num">3</span>
+    player.say(<span class="c-str">"Clucky: replant done! Strip "</span> + str(rest_strip) + <span class="c-str">" is resting."</span>)
+
+player.on_chat(<span class="c-str">"replant"</span>, on_chat)</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- IPO + flowchart -->
+    <h3 style="margin-top:48px">🧾 System logic model: Sugar Mill → Market (our most complex subsystem)</h3>
+    <div class="two-col">
+      <div>
+        <div class="table-wrap">
+          <table>
+            <caption class="pixel" style="caption-side:top; text-align:left; padding:10px; font-size:12px">IPO CHART</caption>
+            <thead><tr><th>📥 Input</th><th>⚙️ Process</th><th>📤 Output</th></tr></thead>
+            <tbody>
+              <tr><td>Observer sees cane reach 2nd block</td><td>Pulse fires piston, which breaks the stalk</td><td>Sugar cane item drops into water</td></tr>
+              <tr><td>Hopper comparator signal ≥ 1</td><td>Add 1 to <code>sugar</code> score</td><td>Live actionbar progress “Sugar: 37 / 64”</td></tr>
+              <tr><td><code>sugar</code> score</td><td><strong>IF</strong> sugar ≥ 64: add 1 to <code>stock</code>, reset sugar to 0. <strong>ELSE</strong> keep counting</td><td>Level-up sound, “Shipment sent!” text, shop lamp ON</td></tr>
+              <tr><td>Player presses BUY at Sugar Shop</td><td><strong>IF</strong> coins ≥ 6 <strong>AND</strong> stock ≥ 1: give item, coins − 6, stock − 1. <strong>ELSE</strong> show error</td><td>Item in inventory, or red “✖ Sold out / not enough coins”</td></tr>
+              <tr><td>Daylight sensor (inverted)</td><td><strong>NOT</strong> day → night mode</td><td>Mill lights + golem eyes ON</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <h3 style="margin-top:26px">📝 Pseudocode</h3>
+<pre><code><span class="c-key">BEGIN</span> SugarMillLoop
+  <span class="c-key">LOOP</span> forever                         <span class="c-com">// repeating command block</span>
+    <span class="c-key">IF</span> observer detects growth <span class="c-key">THEN</span>
+       piston breaks cane
+    <span class="c-key">END IF</span>
+    <span class="c-key">WHILE</span> hopper has items                 <span class="c-com">// comparator signal</span>
+       sugar ← sugar + 1
+    <span class="c-key">END WHILE</span>
+    <span class="c-key">IF</span> sugar ≥ 64 <span class="c-key">THEN</span>
+       stock ← stock + 1
+       PLAY levelup ; SHOW "Shipment sent!"
+       sugar ← 0
+    <span class="c-key">ELSE</span>
+       SHOW "Sugar: " + sugar + " / 64"
+    <span class="c-key">END IF</span>
+  <span class="c-key">END LOOP</span>
+<span class="c-key">END</span> SugarMillLoop
+
+<span class="c-key">BEGIN</span> BuySugar(player)
+  <span class="c-key">IF</span> player.coins ≥ 6 <span class="c-key">AND</span> stock ≥ 1 <span class="c-key">THEN</span>
+     GIVE sugar ×16 ; player.coins ← player.coins − 6 ; stock ← stock − 1
+  <span class="c-key">ELSE</span>
+     SHOW "✖ Sold out / not enough coins"
+  <span class="c-key">END IF</span>
+<span class="c-key">END</span> BuySugar</code></pre>
+      </div>
+      <div class="diagram narrow">
+        <svg viewBox="0 0 420 860" role="img" aria-labelledby="flowT flowD">
+          <title id="flowT">Flowchart of the Sugar Mill loop</title>
+          <desc id="flowD">Start, then a decision: has the observer detected growth? If no, wait one tick and loop back. If yes, the piston breaks the cane and the hopper collects it. Add one to sugar. Decision: is sugar at least 64? If no, show progress on the actionbar and loop back. If yes, add one to stock, play a sound and show the shipment message, reset sugar to zero, then loop back to the start.</desc>
+          <defs><marker id="fa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#1f1a14"/></marker></defs>
+          <rect width="420" height="860" fill="#fffdf6"/>
+          <g font-family="Rubik, sans-serif" font-size="14" text-anchor="middle" fill="#1f1a14" stroke="#1f1a14" stroke-width="3">
+            <!-- start -->
+            <rect x="130" y="16" width="160" height="46" rx="23" fill="#c6e6a8"/>
+            <!-- decision 1 -->
+            <polygon points="210,100 320,160 210,220 100,160" fill="#ffe59a"/>
+            <!-- process piston -->
+            <rect x="110" y="262" width="200" height="56" fill="#9fdcff"/>
+            <!-- io hopper -->
+            <polygon points="125,356 315,356 295,410 105,410" fill="#e3d2ff"/>
+            <!-- decision 2 -->
+            <polygon points="210,448 320,508 210,568 100,508" fill="#ffe59a"/>
+            <!-- yes process -->
+            <rect x="110" y="610" width="200" height="74" fill="#9fdcff"/>
+            <!-- output -->
+            <polygon points="125,722 315,722 295,776 105,776" fill="#ffd0cc"/>
+            <!-- no output (right) -->
+            <polygon points="330,482 410,482 400,534 320,534" fill="#ffd0cc" transform="translate(-6 0)"/>
+            <!-- wait -->
+            <rect x="8" y="136" width="70" height="48" fill="#fff"/>
+          </g>
+          <g font-family="Rubik, sans-serif" font-size="13" text-anchor="middle" fill="#1f1a14" font-weight="700">
+            <text x="210" y="44">START (each tick)</text>
+            <text x="210" y="156">Observer detects</text><text x="210" y="173">growth?</text>
+            <text x="210" y="286">Piston breaks cane</text><text x="210" y="304">→ water → hopper</text>
+            <text x="210" y="380">INPUT: comparator</text><text x="210" y="397">sugar ← sugar + 1</text>
+            <text x="210" y="504">sugar ≥ 64 ?</text>
+            <text x="210" y="636">stock ← stock + 1</text><text x="210" y="654">sugar ← 0</text><text x="210" y="672">lamp ON</text>
+            <text x="210" y="746">OUTPUT: sound +</text><text x="210" y="764">“Shipment sent!”</text>
+            <text x="358" y="504" font-size="11">SHOW</text><text x="358" y="520" font-size="11">progress</text>
+            <text x="43" y="157" font-size="11">wait</text><text x="43" y="172" font-size="11">1 tick</text>
+          </g>
+          <g stroke="#1f1a14" stroke-width="3" fill="none" marker-end="url(#fa)">
+            <line x1="210" y1="62" x2="210" y2="97"/>
+            <line x1="210" y1="220" x2="210" y2="259"/>
+            <line x1="210" y1="318" x2="210" y2="353"/>
+            <line x1="210" y1="410" x2="210" y2="445"/>
+            <line x1="210" y1="568" x2="210" y2="607"/>
+            <line x1="210" y1="684" x2="210" y2="719"/>
+            <line x1="100" y1="160" x2="81" y2="160"/>
+            <path d="M43 136 V80 H207"/>
+            <path d="M358 482 V80 H213"/>
+          </g>
+          <g stroke="#1f1a14" stroke-width="3" fill="none">
+            <line x1="320" y1="508" x2="326" y2="508"/>
+            <path d="M210 776 V830 H20 V80 H43"/>
+          </g>
+          <g font-family="Rubik, sans-serif" font-size="13" font-weight="800">
+            <text x="220" y="242" fill="#3d7d26">YES</text>
+            <text x="86" y="150" fill="#d9342b">NO</text>
+            <text x="220" y="590" fill="#3d7d26">YES</text>
+            <text x="322" y="498" fill="#d9342b">NO</text>
+            <text x="30" y="850" fill="#1f1a14">↺ loop back to START</text>
+          </g>
+        </svg>
+        <p class="cap">Standard symbols: rounded = start/end, rectangle = process, diamond = decision, parallelogram = input/output. This matches the command blocks in the Sugar Mill tab exactly.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 8. FAIR PLAY ============ -->
+<section id="care" class="alt">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">08</span><h2>Fair Play &amp; Caring for Country</h2><span class="rubric-tag">Safe · ethical · inclusive</span></div>
+    <p class="lede">Automation isn't just about being fast. It's about who it's fair to: the players, the animals, the workers, and the land.</p>
+    <div class="grid g3">
+      <div class="card"><div class="icon">🐔</div><h3>Humane animal systems</h3><p>No mob-cramming and no grinders. Chicken Co is free-range: every chicken gets at least a 3 × 3 space, grass, light and water. Eggs are collected by a hopper under the nest straw, so no animals are harmed for the economy.</p></div>
+      <div class="card"><div class="icon">🧑‍🌾</div><h3>Fair work for villagers</h3><p>Every farmer villager has a bed, a window, a workstation and a schedule with time off. A team member worked out that the farm only runs reliably when worker conditions match real workplace standards. The game rewards being fair.</p></div>
+      <div class="card"><div class="icon">🌱</div><h3>Rotational land care</h3><p>The Rest Field is split into three strips. Each harvest, one strip rests. This idea comes from rotational land and fire management that Aboriginal and Torres Strait Islander peoples have practised on Country for tens of thousands of years. Our sign explains <em>why</em> resting land matters, without pretending to speak for any community.</p></div>
+      <div class="card"><div class="icon">🎰</div><h3>Plinko without gambling</h3><p>Plinko Palace looks like a casino but it isn't one. It runs on <strong>free Golden Feathers</strong> that you earn by playing, and these can't be bought with Cluckcoins. Prizes are cosmetic only. A sign at the bottom shows the bell curve the pegs make, so the game turns into a maths lesson.</p></div>
+      <div class="card"><div class="icon">🛡️</div><h3>Safe, moderated zones</h3><p>PvP only happens in the opt-in arena. Builds are protected by Education Edition <strong>Border</strong> and <strong>Deny</strong> blocks. <code>mobgriefing</code> and <code>tntexplodes</code> are off. Chaos Chicken Hour only picks players who opted in.</p></div>
+      <div class="card"><div class="icon">♿</div><h3>Multi-sensory access</h3><p>Every event gives <strong>3 cues</strong>: text on screen, a sound, and a lamp. Zones use colour <em>and</em> shape. Paths are 3 blocks wide, with ramps instead of ladders. Signs are dark on light, with large lettering at eye level. The lift means stairs are never required.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 9. PORTFOLIO ============ -->
+<section id="portfolio">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">09</span><h2>Studio Planning Portfolio</h2><span class="rubric-tag">Requirements · sprints · versions</span></div>
+
+    <div class="card" style="margin-bottom:28px">
+      <h3>📌 Problem statement &amp; scope</h3>
+      <p><strong>Audience:</strong> students aged 10–15 and their teachers. <strong>Problem:</strong> automated farms and factories feed millions of people, but the logic inside them (sensors, decisions, feedback loops) is hidden behind metal walls. <strong>Solution:</strong> a playable, see-through automated valley where every system can be watched, explained and played with in a 10-minute game loop. <strong>Out of scope:</strong> survival-mode combat, real-money anything, and mods or add-ons.</p>
+    </div>
+
+    <h3>✅ Requirements (all tested at FINAL)</h3>
+    <div class="table-wrap" style="margin:12px 0 32px">
+      <table>
+        <thead><tr><th>ID</th><th>Type</th><th>Requirement</th><th>How we tested it</th><th>Result</th></tr></thead>
+        <tbody>
+          <tr><td>F1</td><td>Functional</td><td>Sugar cane must be harvested automatically when it reaches height 3, with no player input.</td><td>Watched 3 full game days. Counted 0 missed stalks.</td><td><span class="ok">PASS</span></td></tr>
+          <tr><td>F2</td><td>Functional</td><td>The <code>sugar</code> score must add 1 per item and reset to 0 after each 64-item shipment.</td><td>Dropped exactly 64, 65 and 128 items in by hand.</td><td><span class="ok">PASS</span></td></tr>
+          <tr><td>F3</td><td>Functional</td><td>Golem eyes must turn on at night and off in the day.</td><td><code>/time set 13000</code> then <code>/time set 1000</code></td><td><span class="ok">PASS</span></td></tr>
+          <tr><td>F4</td><td>Functional</td><td>Each of the 9 teleport pads must send the player to the right zone, facing the entrance, with a sound and a title.</td><td>Teleporter speed-run test, all 9 pads both ways.</td><td><span class="ok">PASS</span></td></tr>
+          <tr><td>F5</td><td>Functional</td><td>The elevator must reach all 30 floors, and must not go below 1 or above 30.</td><td>Pressed ▼ at floor 1 and ▲ at floor 30 (boundary tests).</td><td><span class="ok">PASS</span></td></tr>
+          <tr><td>F6</td><td>Functional</td><td>The shop must only sell if coins ≥ price AND stock ≥ 1, otherwise show an error.</td><td>Tested with 0, 9, 10 and 11 coins, and with 0 stock.</td><td><span class="ok">PASS</span></td></tr>
+          <tr><td>F7</td><td>Functional</td><td>The game must have a start, a win (250 coins), a lose (timer 0) and a full reset.</td><td>5 complete playtests by people outside the studio.</td><td><span class="ok">PASS</span></td></tr>
+          <tr><td>F8</td><td>Functional</td><td>The Agent must replant a 9 × 9 field, skipping the resting strip and blocks that are already planted.</td><td>Ran <code>replant</code> 3× in a row and checked the strips rotated.</td><td><span class="ok">PASS</span></td></tr>
+          <tr><td>N1</td><td>Non-functional</td><td>The world runs at ≥ 50 FPS on school laptops.</td><td>Checked the FPS counter at the Hub, the Tower and the Sugar Mill: lowest was 54.</td><td><span class="ok">PASS</span></td></tr>
+          <tr><td>N2</td><td>Non-functional</td><td>A new player can start a shift within 60 seconds of spawning, without help.</td><td>Timed 4 Year 7 testers: average 38 s.</td><td><span class="ok">PASS</span></td></tr>
+          <tr><td>N3</td><td>Non-functional</td><td>Every game event gives text, sound and light feedback.</td><td>Accessibility checklist, played with the sound muted and again with the screen dimmed.</td><td><span class="ok">PASS</span></td></tr>
+          <tr><td>N4</td><td>Non-functional</td><td>Players can't grief or break the core systems.</td><td>“Try to break it” session (yes, we tried TNT).</td><td><span class="ok">PASS</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>🗓️ Sprint log &amp; version archive</h3>
+    <div class="timeline" style="margin:24px 0 32px">
+      <div class="week"><span class="chip ver">v0.1 · 16 Oct</span><span class="wk">WEEK 1</span><h4>Ideation &amp; roles</h4><ul><li>Whole class becomes one 12-person studio</li><li>Theme A chosen, Cluckwork lore written</li><li>Roles assigned, plots marked out</li><li>First farms + Chicken Co foundations</li></ul></div>
+      <div class="week"><span class="chip ver">v0.2 · 22 Oct</span><span class="wk">WEEK 2</span><h4>📍 CP1: Scope</h4><ul><li>Requirements table + IPO signed off</li><li>Sugar mill observers working</li><li>Teleport network v1 (9 pads)</li><li>Plinko Palace + arena shells</li></ul></div>
+      <div class="week"><span class="chip ver">v0.3 · 23 Oct</span><span class="wk">WEEK 3</span><h4>📍 CP2: Alpha</h4><ul><li>Elevator: 29-block chain</li><li>Bamboo → kelp pipeline</li><li>Golem eyes NOT gate</li><li>Big bug hunt (see below)</li></ul></div>
+      <div class="week"><span class="chip ver">v0.4 · 6 Nov</span><span class="wk">WEEK 4</span><h4>📍 CP3: Beta</h4><ul><li>Cluckcoin economy + timer</li><li>Accessibility pass (ramps, signs)</li><li>Website + fly-through draft</li><li>External playtests</li></ul></div>
+      <div class="week"><span class="chip green ver">FINAL · 13 Nov</span><span class="wk">WEEK 5</span><h4>Polish &amp; ship</h4><ul><li>Final QA, 0 critical bugs</li><li>Export <code>.mcworld</code></li><li>Portfolio + AI log</li><li>Launch this site 🚀</li></ul></div>
+    </div>
+
+    <div class="table-wrap" style="margin-bottom:32px">
+      <table>
+        <thead><tr><th>Role</th><th>Owned subsystems</th><th>Weekly tasks (highlights)</th></tr></thead>
+        <tbody>
+          <tr><td>⚙️ Systems &amp; Logic Leads ×2</td><td>Sugar mill counter, market, elevator, arena logic</td><td>W2 observer test rig · W3 elevator chain · W4 shop selection bug fix</td></tr>
+          <tr><td>🗺️ Level &amp; World Designers ×4</td><td>Chicken Co Tower, Lava Wall, Plinko Palace, greenhouses, kelp line</td><td>W1 plots + paths · W2 tower shell · W3 kelp/bamboo pipeline · W4 decor</td></tr>
+          <tr><td>🎨 UI/UX &amp; Accessibility ×2</td><td>Golem statue + eyes, signage, colour/shape zones, ramps</td><td>W2 golem body · W3 daylight sensor eyes · W4 sign + ramp audit</td></tr>
+          <tr><td>🧪 QA &amp; Testing Leads ×2</td><td>Test cases, bug board, world backups</td><td>Every Friday: export a version, run the regression list, triage bugs</td></tr>
+          <tr><td>📢 Media &amp; Comms Lead</td><td>Screenshots, fly-through, this website</td><td>W1 photo documentation · W4 video draft · W5 launch</td></tr>
+          <tr><td>🎲 Command Block Wizard</td><td>Teleporters, Chaos Chicken Hour, gamerules</td><td>W2 teleport pads · W3 tower portal elevator · W3 fixed his own chaos bug 😅</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>🐞 Bug Board (our favourite disasters)</h3>
+    <div class="grid g2" style="margin:12px 0 32px">
+      <div class="card bug fixed"><h3>#1 The Wither Incident</h3><p class="meta">Severity: CRITICAL · v0.2 · FIXED</p><p>Someone summoned withers and a whole wing of Chicken Co was lost. <strong>Fix:</strong> <code>gamerule mobgriefing false</code>, a Deny-block shell around the tower, and the summon command removed from player access.</p></div>
+      <div class="card bug fixed"><h3>#2 TNT Mountain</h3><p class="meta">Severity: CRITICAL · v0.2 · FIXED</p><p>40,000 blocks of TNT. You can guess the rest. <strong>Fix:</strong> <code>gamerule tntexplodes false</code> and a restore from the v0.1 backup. This is why QA exports a version every Friday.</p></div>
+      <div class="card bug fixed"><h3>#3 Everyone, Every Second</h3><p class="meta">Severity: HIGH · v0.2 · FIXED</p><p>Chaos Chicken Hour was edited to <code>tp @a</code> on a 0-tick delay, and the whole class was stuck in the centre for minutes. <strong>Fix:</strong> <code>@r[tag=chaos]</code> (one opted-in player) plus a 6000-tick delay.</p></div>
+      <div class="card bug fixed"><h3>#4 Charged for Nothing</h3><p class="meta">Severity: MEDIUM · v0.3 · FIXED</p><p>The shop showed “not enough coins” <em>after</em> taking the coins. <strong>Fix:</strong> moved the <code>unless</code> branch first in the chain (see the Market tab).</p></div>
+      <div class="card bug fixed"><h3>#5 Redstone Spaghetti</h3><p class="meta">Severity: LOW · v0.3 · FIXED</p><p>The golem's wiring showed through its chest. <strong>Fix:</strong> rerouted it up the back wall with a repeater. A designer's verdict in the log: keeping redstone hidden is “the most annoying thing ever”.</p></div>
+      <div class="card bug fixed"><h3>#6 Villager Strike</h3><p class="meta">Severity: MEDIUM · v0.2 · FIXED</p><p>The potato farm villagers wouldn't work. <strong>Fix:</strong> beds, a workstation each and a path to daylight. (A sword was suggested and politely rejected.)</p></div>
+    </div>
+
+    <h3>🤖 AI use log</h3>
+    <div class="table-wrap" style="margin-top:12px">
+      <table>
+        <thead><tr><th>Date</th><th>Tool</th><th>Prompt (summary)</th><th>How we adapted it</th></tr></thead>
+        <tbody>
+          <tr><td>14/10/26</td><td>Chatbot</td><td>“Ideas for a funny company that runs an automated farm”</td><td>Got 10 names and kept none of them. They did spark “chickens run the company”, so we wrote our own lore and the name Cluckwork.</td></tr>
+          <tr><td>22/10/26</td><td>Chatbot</td><td>“Fix syntax: titleraw with a score in Bedrock”</td><td>Learned the <code>rawtext</code> + <code>score</code> format, then rewrote it for our <code>Farm</code> fake player.</td></tr>
+          <tr><td>29/10/26</td><td>Chatbot</td><td>“Why does my daylight sensor light the lamps in the day?”</td><td>It suggested inverted mode. We tested both modes and wrote the truth table ourselves.</td></tr>
+          <tr><td>11/11/26</td><td>Claude</td><td>Website layout scaffold and copy-editing for the promo site</td><td>Teacher-led exemplar build. All lore, systems, bugs and test data come from the studio's logs and world.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 10. STUDIO ============ -->
+<section id="studio" class="alt">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">10</span><h2>Meet Cluckwork Studios</h2><span class="rubric-tag">Studio identity · team roles</span></div>
+    <p class="lede">Twelve engineers, one valley, an unreasonable number of chickens. First names or gamer tags only. 📸 Selfies coming soon!</p>
+    <div id="team-grid" class="team"></div>
+  </div>
+</section>
+
+<!-- ============ 11. PRESS ============ -->
+<section id="press">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">11</span><h2>Press Kit</h2><span class="rubric-tag">Branding · promotional copy</span></div>
+    <div class="grid g2">
+      <div class="card copy-box">
+        <button class="copy-btn" data-copy="blurb">Copy</button>
+        <h3>📰 50-word blurb</h3>
+        <p id="blurb">Cluckwork Valley is an automated factory and smart farm built in Minecraft Education by Cluckwork Studios. Watch observers harvest sugar cane, ride a 30-floor command-block elevator, and earn Cluckcoins at the Farm-to-Table Market before your shift ends. Every machine is see-through, so you can watch how automation works.</p>
+      </div>
+      <div class="card copy-box">
+        <button class="copy-btn" data-copy="tags">Copy</button>
+        <h3>🏷️ Taglines</h3>
+        <ul id="tags" style="margin:0; padding-left:20px">
+          <li>Farms that farm themselves.</li>
+          <li>Powered by redstone. Run by chickens.</li>
+          <li>Thirty floors. Zero stairs. One very ambitious chicken.</li>
+          <li>See the logic. Play the logic. Become the logic.</li>
+          <li>Now hiring: Farm Manager. Must love poultry.</li>
+        </ul>
+      </div>
+      <div class="card copy-box">
+        <button class="copy-btn" data-copy="trailer">Copy</button>
+        <h3>🎬 30-second trailer script</h3>
+        <div id="trailer">
+          <p><strong>[0–5s]</strong> <em>Drone shot over the Lava Wall.</em> VO: “In a valley past the lava…”</p>
+          <p><strong>[5–12s]</strong> <em>Quick cuts: piston chops cane, golem eyes flick on, hopper minecart rolls.</em> VO: “…the farms run themselves.”</p>
+          <p><strong>[12–20s]</strong> <em>Player rides elevator, “Floor 17: Egg Accounting” pops up.</em> VO: “Thirty floors. Zero stairs.”</p>
+          <p><strong>[20–26s]</strong> <em>Arena knockback, Plinko feather bouncing, fireworks.</em> VO: “Earn your Cluckcoins. Beat the clock.”</p>
+          <p><strong>[26–30s]</strong> <em>Chicken CEO close-up.</em> VO: “Cluckwork Valley. Now hiring.” <em>Bawk.</em></p>
+        </div>
+      </div>
+      <div class="card copy-box">
+        <button class="copy-btn" data-copy="social">Copy</button>
+        <h3>📣 Social posts</h3>
+        <div id="social">
+          <p>🐔⚙️ Our Year 9 studio built a whole automated valley in Minecraft Education: self-harvesting sugar cane, a 30-storey chicken HQ, and a golem with night-vision eyes. Take a tour 👉 [link]</p>
+          <p>POV: you're a sugar cane and an observer has been watching you grow for 3 blocks. 👀🎋 #CluckworkValley</p>
+          <p>Bug report: 40,000 TNT. Bug status: fixed. Lesson: back up your world every Friday. 💾 #QA #CluckworkValley</p>
+        </div>
+      </div>
+    </div>
+    <div class="grid g2" style="margin-top:28px">
+      <div class="card">
+        <h3>🎨 Brand colours</h3>
+        <div class="swatches">
+          <div class="swatch"><div style="background:#5cb03c"></div><span>Grass<br>#5CB03C</span></div>
+          <div class="swatch"><div style="background:#f6c431"></div><span>Plinko Gold<br>#F6C431</span></div>
+          <div class="swatch"><div style="background:#d9342b"></div><span>Redstone<br>#D9342B</span></div>
+          <div class="swatch"><div style="background:#2d5bd1"></div><span>Portal Lapis<br>#2D5BD1</span></div>
+          <div class="swatch"><div style="background:#23866a"></div><span>Kelp<br>#23866A</span></div>
+          <div class="swatch"><div style="background:#fff8e7"></div><span>Eggshell<br>#FFF8E7</span></div>
+        </div>
+        <p style="margin-top:12px"><strong>Type:</strong> “Press Start 2P” for headings (blocky like the game), Rubik for reading (rounded and friendly).</p>
+      </div>
+      <div class="card" style="display:flex; gap:20px; align-items:center; flex-wrap:wrap">
+        <svg viewBox="0 0 16 16" width="120" height="120" aria-label="Cluckwork Studios logo: a pixel chicken in a hard hat" role="img" style="border:4px solid var(--line); background:var(--sky); padding:8px"><use href="#chick"/></svg>
+        <div>
+          <h3>🐔 The logo</h3>
+          <p>Colonel Cluck in a hard hat: a chicken (the company) wearing safety gear (the factory). Drawn as a 16 × 16 pixel sprite so it works as a favicon, a sign in the world, and a banner.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="grid g2">
+      <div>
+        <p class="pixel" style="font-size:14px">🐔 CLUCKWORK STUDIOS</p>
+        <p>Year 9 Computing Technology · Task #4: Automated Factory &amp; Smart Farm · 2026.<br>Built in Minecraft Education. Not affiliated with Mojang or Microsoft.</p>
+        <p class="tiny">Want a PDF backup? Print this page (Ctrl/Cmd + P → Save as PDF). The print layout is tidy, we checked.</p>
+      </div>
+      <div>
+        <div class="ack">🌏 We acknowledge the Traditional Custodians of the land on which we learn, build and play, and pay our respects to Elders past and present. Always was, always will be, Aboriginal land.</div>
+      </div>
+    </div>
+    <p class="tiny" style="margin-top:22px">Exemplar build site: a model “A-range” Deliverable 3 prepared for the class. AI-assisted drafting is acknowledged in the AI use log above.</p>
+  </div>
+</footer>
+
+<dialog class="lightbox" id="lightbox" aria-label="Screenshot viewer">
+  <form method="dialog"><button class="btn ghost" style="padding:4px 10px" aria-label="Close">✖</button></form>
+  <img id="lbImg" alt="">
+  <p id="lbCap"></p>
+</dialog>
+<div class="toast" id="toast" role="status"></div>
+
+<script src="media.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
