@@ -141,6 +141,7 @@
     <div class="sec-head"><span class="sec-num">03</span><h2>World Map</h2><span class="rubric-tag">Wayfinding · colour-coded zones</span></div>
     <p class="lede">Every zone has its own <strong>colour and shape</strong>, so colour-blind players can still find their way. Teleport lines (dashed blue) all start at the Spawn Hub, and the rail line (solid) loops the valley for people who like the scenic route.</p>
     <div class="diagram">
+      <p class="swipe-hint">👉 Swipe sideways to explore the whole map</p>
       <svg viewBox="0 0 1000 600" role="img" aria-labelledby="mapT mapD">
         <title id="mapT">Top-down map of Cluckwork Valley</title>
         <desc id="mapD">The Spawn and Teleport Hub sits in the centre with dashed teleport lines to eight zones: Firework Cave north-west, Iron Works and Golem north, Chicken Co Tower north-east, Sugar Mill west, Plinko Palace east, Bamboo to Kelp Line south-west, Greenhouse Wheat and Rest Field south, and Knockback Arena south-east. The Great Lava Wall runs down the eastern edge and a rail loop circles the valley.</desc>
@@ -169,8 +170,8 @@
           <rect x="390" y="62" width="160" height="110" fill="#9aa3ad" stroke="#1f1a14" stroke-width="4"/>
           <text x="470" y="108" fill="#1f1a14">🗿 Iron Works</text><text x="470" y="128" fill="#1f1a14">+ Night-Eyed Golem</text>
           <!-- Chicken Co: tall rect -->
-          <rect x="735" y="58" width="110" height="150" fill="#ffffff" stroke="#1f1a14" stroke-width="4"/>
-          <rect x="735" y="58" width="110" height="22" fill="#f6c431" stroke="#1f1a14" stroke-width="4"/>
+          <rect x="715" y="58" width="150" height="150" fill="#ffffff" stroke="#1f1a14" stroke-width="4"/>
+          <rect x="715" y="58" width="150" height="22" fill="#f6c431" stroke="#1f1a14" stroke-width="4"/>
           <text x="790" y="128" fill="#1f1a14">🐔 Chicken Co</text><text x="790" y="148" fill="#1f1a14">Tower (30F)</text>
           <!-- Sugar mill: hexagon -->
           <polygon points="110,300 140,248 200,248 230,300 200,352 140,352" fill="#5cb03c" stroke="#1f1a14" stroke-width="4"/>
@@ -396,7 +397,8 @@ scoreboard players add Farm sugar <span class="c-num">1</span>
 <span class="c-key">execute if</span> score Farm sugar matches <span class="c-num">64..</span> run scoreboard players add Farm stock <span class="c-num">1</span>
 <span class="c-key">execute if</span> score Farm sugar matches <span class="c-num">64..</span> run playsound random.levelup @a[tag=shift]
 <span class="c-key">execute if</span> score Farm sugar matches <span class="c-num">64..</span> run title @a[tag=shift] actionbar §e🍬 Sugar shipment sent to the shop!
-<span class="c-key">execute if</span> score Farm sugar matches <span class="c-num">64..</span> run scoreboard players set Farm sugar <span class="c-num">0</span>  <span class="c-com"># reset LAST</span>
+<span class="c-com"># reset LAST, otherwise the lines above never see 64</span>
+<span class="c-key">execute if</span> score Farm sugar matches <span class="c-num">64..</span> run scoreboard players set Farm sugar <span class="c-num">0</span>
 
 <span class="c-com"># ELSE — live progress on the actionbar for nearby players</span>
 <span class="c-key">execute unless</span> score Farm sugar matches <span class="c-num">64..</span> run titleraw @a[r=20] actionbar {<span class="c-str">"rawtext"</span>:[{<span class="c-str">"text"</span>:<span class="c-str">"§aSugar: "</span>},{<span class="c-str">"score"</span>:{<span class="c-str">"name"</span>:<span class="c-str">"Farm"</span>,<span class="c-str">"objective"</span>:<span class="c-str">"sugar"</span>}},{<span class="c-str">"text"</span>:<span class="c-str">" / 64"</span>}]}</code></pre>
@@ -458,7 +460,7 @@ tp @r[tag=chaos] <span class="c-num">0 80 0</span>
       <div class="two-col">
         <div>
           <h3>Chicken Co Tower elevator <span class="chip red">variables + 29-block chain</span></h3>
-          <p>No-one should climb 30 floors. Step onto the lift pad and press <strong>▲</strong> or <strong>▼</strong> to change your personal <code>floor</code> score. It's clamped to 1–30 using <em>operators</em>, and the actionbar shows your choice. Press <strong>GO</strong>.</p>
+          <p>No-one should climb 30 floors. Step onto the lift pad and press <strong>▲</strong> or <strong>▼</strong> to change your personal <code>floor</code> score. It's clamped to 1–30 with <em>range checks</em> (<code>31..</code> and <code>..0</code>), and the actionbar shows your choice. Press <strong>GO</strong>.</p>
           <p>GO fires a chain of <strong>29 command blocks</strong>, one for each floor you can travel to. Each one tests <code>if score @s floor matches N</code>, so only the right one teleports you. A level-up “ding” plays and the floor name pops up: <em>“Floor 17: Egg Accounting.”</em></p>
           <p><strong>Improvement idea (v2):</strong> work out the Y-coordinate from the floor number so one block replaces 29. We kept the chain because it lets every floor have its own custom welcome message.</p>
         </div>
@@ -497,10 +499,13 @@ playsound random.levelup @p</code></pre>
 clear @p wheat <span class="c-num">0 16</span>          <span class="c-com"># conditional: only runs if the line above worked</span>
 playsound random.orb @p
 
-<span class="c-com"># BUY 3 bread for 10 coins — ELSE branch runs FIRST</span>
+<span class="c-com"># BUY 3 bread for 10 coins (the Sugar Shop works the same way at 6)</span>
+<span class="c-com"># ELSE branch runs FIRST, then a tag remembers who passed the check</span>
 <span class="c-key">execute as</span> @p <span class="c-key">unless</span> score @s coins matches <span class="c-num">10..</span> run title @s actionbar §c✖ Need 10 Cluckcoins
-<span class="c-key">execute as</span> @p <span class="c-key">if</span> score @s coins matches <span class="c-num">10..</span> run give @s bread <span class="c-num">3</span>
-<span class="c-key">execute as</span> @p <span class="c-key">if</span> entity @s[hasitem={item=bread}] run scoreboard players remove @s coins <span class="c-num">10</span>
+<span class="c-key">execute as</span> @p <span class="c-key">if</span> score @s coins matches <span class="c-num">10..</span> run tag @s add buying
+give @a[tag=buying] bread <span class="c-num">3</span>
+scoreboard players remove @a[tag=buying] coins <span class="c-num">10</span>
+tag @a remove buying
 
 <span class="c-com"># Shift timer — repeating, delay 20 ticks (1 s)</span>
 scoreboard players remove Clock shift <span class="c-num">1</span>
@@ -522,10 +527,13 @@ scoreboard players remove Clock shift <span class="c-num">1</span>
 <pre><code><span class="c-com"># Safe zones everywhere else (repeating)</span>
 effect @a[tag=!arena] weakness <span class="c-num">2 255</span> true
 
-<span class="c-com"># DEFEAT — fell in a pit (repeating)</span>
-<span class="c-key">execute as</span> @a[tag=arena,y=<span class="c-num">0</span>,dy=<span class="c-num">40</span>] run tp @s <span class="c-num">340 72 160</span>
-title @a[tag=arena,y=<span class="c-num">0</span>,dy=<span class="c-num">40</span>] title §c KNOCKED OUT 🐣
-tag @a[y=<span class="c-num">0</span>,dy=<span class="c-num">40</span>] remove arena
+<span class="c-com"># DEFEAT — fell in a pit, anywhere below y = 40 (repeating + chain)</span>
+<span class="c-com"># tag first, teleport last, so every step still finds the player</span>
+tag @a[tag=arena,y=<span class="c-num">-64</span>,dy=<span class="c-num">104</span>] add out
+title @a[tag=out] title §cKNOCKED OUT 🐣
+tag @a[tag=out] remove arena
+tp @a[tag=out] <span class="c-num">340 72 160</span>
+tag @a[tag=out] remove out
 
 <span class="c-com"># ITERATION — count who's left, every tick</span>
 scoreboard players set Arena alive <span class="c-num">0</span>
@@ -641,7 +649,7 @@ player.on_chat(<span class="c-str">"replant"</span>, on_chat)</code></pre>
             <!-- output -->
             <polygon points="125,722 315,722 295,776 105,776" fill="#ffd0cc"/>
             <!-- no output (right) -->
-            <polygon points="330,482 410,482 400,534 320,534" fill="#ffd0cc" transform="translate(-6 0)"/>
+            <polygon points="340,482 416,482 406,534 330,534" fill="#ffd0cc"/>
             <!-- wait -->
             <rect x="8" y="136" width="70" height="48" fill="#fff"/>
           </g>
@@ -653,7 +661,7 @@ player.on_chat(<span class="c-str">"replant"</span>, on_chat)</code></pre>
             <text x="210" y="504">sugar ≥ 64 ?</text>
             <text x="210" y="636">stock ← stock + 1</text><text x="210" y="654">sugar ← 0</text><text x="210" y="672">lamp ON</text>
             <text x="210" y="746">OUTPUT: sound +</text><text x="210" y="764">“Shipment sent!”</text>
-            <text x="358" y="504" font-size="11">SHOW</text><text x="358" y="520" font-size="11">progress</text>
+            <text x="373" y="504" font-size="11">SHOW</text><text x="373" y="520" font-size="11">progress</text>
             <text x="43" y="157" font-size="11">wait</text><text x="43" y="172" font-size="11">1 tick</text>
           </g>
           <g stroke="#1f1a14" stroke-width="3" fill="none" marker-end="url(#fa)">
@@ -665,17 +673,17 @@ player.on_chat(<span class="c-str">"replant"</span>, on_chat)</code></pre>
             <line x1="210" y1="684" x2="210" y2="719"/>
             <line x1="100" y1="160" x2="81" y2="160"/>
             <path d="M43 136 V80 H207"/>
-            <path d="M358 482 V80 H213"/>
+            <line x1="320" y1="508" x2="333" y2="508"/>
+            <path d="M378 482 V80 H213"/>
           </g>
           <g stroke="#1f1a14" stroke-width="3" fill="none">
-            <line x1="320" y1="508" x2="326" y2="508"/>
             <path d="M210 776 V830 H20 V80 H43"/>
           </g>
           <g font-family="Rubik, sans-serif" font-size="13" font-weight="800">
             <text x="220" y="242" fill="#3d7d26">YES</text>
-            <text x="86" y="150" fill="#d9342b">NO</text>
+            <text x="80" y="200" fill="#d9342b">NO ←</text>
             <text x="220" y="590" fill="#3d7d26">YES</text>
-            <text x="322" y="498" fill="#d9342b">NO</text>
+            <text x="300" y="556" fill="#d9342b">NO →</text>
             <text x="30" y="850" fill="#1f1a14">↺ loop back to START</text>
           </g>
         </svg>
