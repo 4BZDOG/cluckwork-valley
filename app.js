@@ -1,7 +1,7 @@
 /* 🐔 Cluckwork Valley — page behaviour. No libraries, no build step. */
 (function () {
   "use strict";
-  var M = window.CLUCKWORK_MEDIA || { videos: [], team: [], gallery: [], behindTheScenes: [] };
+  var M = window.CLUCKWORK_MEDIA || { videos: [], team: [], gallery: [], behindTheScenes: [], builds: [] };
   var $ = function (id) { return document.getElementById(id); };
   function el(tag, attrs, html) {
     var n = document.createElement(tag);
@@ -149,4 +149,25 @@
         function () { toast("Couldn't copy, so select the text manually."); });
     });
   });
+
+  /* ---------- build history (from media.js → builds) ---------- */
+  (function () {
+    var builds = M.builds || [];
+    if (!builds.length) return;
+    var sec = el("section", { id: "builds", "aria-labelledby": "builds-title" });
+    sec.appendChild(el("h2", { id: "builds-title" }, "🧱 Build history: how the valley grew"));
+    sec.appendChild(el("p", null, "Every saved world from the studio, in order. Each entry is a checkpoint, not just a file. The world files themselves are not published on this site."));
+    var list = el("ol", { style: "list-style:none;padding:0;margin:0;display:grid;gap:12px" });
+    builds.forEach(function (b) {
+      var meta = [b.mode, b.photos ? b.photos + " photos" : "", b.status].filter(Boolean).map(esc).join(" · ");
+      list.appendChild(el("li", { style: "border:2px solid currentColor;border-radius:12px;padding:12px 14px" },
+        "<div><b>" + esc(b.label) + "</b> <span>" + esc(b.date) + "</span></div>" +
+        '<div style="font-size:.9em;opacity:.8">' + meta + "</div>" +
+        "<p style=\"margin:6px 0 0\">" + esc(b.changes) + "</p>"));
+    });
+    sec.appendChild(list);
+    var footer = document.querySelector("footer");
+    if (footer && footer.parentNode) footer.parentNode.insertBefore(sec, footer);
+    else (document.querySelector("main") || document.body).appendChild(sec);
+  })();
 })();
