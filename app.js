@@ -174,4 +174,43 @@
     sec.appendChild(wrap);
     main.appendChild(sec);
   })();
+  /* ---------- intro narration: autoplay, with an on-screen on/off control ---------- */
+  (function () {
+    var SRC = "assets/audio/intro-narration.mp3";
+    var KEY = "cw-narration"; /* stores "off" when the visitor has switched narration off */
+    var audio = document.createElement("audio");
+    audio.preload = "auto";
+    audio.src = SRC;
+    var bar = el("div", { class: "narr-bar", role: "region", "aria-label": "Intro narration" });
+    bar.style.cssText = "position:fixed;left:50%;transform:translateX(-50%);bottom:16px;z-index:50;" +
+      "display:flex;align-items:center;gap:8px;padding:8px 14px;border:2px solid currentColor;border-radius:999px;" +
+      "background:Canvas;color:CanvasText;font:600 14px/1.2 Rubik,system-ui,sans-serif;box-shadow:0 4px 14px rgba(0,0,0,.25)";
+    var btn = el("button", { type: "button", "aria-pressed": "false" });
+    btn.style.cssText = "font:inherit;cursor:pointer;border:0;background:none;color:inherit;padding:4px 6px";
+    bar.appendChild(btn);
+
+    function setLabel(playing) {
+      btn.textContent = playing ? "🔇 Turn narration off" : "🔊 Play intro narration";
+      btn.setAttribute("aria-pressed", playing ? "true" : "false");
+    }
+    function remember(off) { try { if (off) localStorage.setItem(KEY, "off"); else localStorage.removeItem(KEY); } catch (e) {} }
+    function wasOff() { try { return localStorage.getItem(KEY) === "off"; } catch (e) { return false; } }
+    function start() {
+      var p = audio.play();
+      if (p && p.catch) p.catch(function () { setLabel(false); }); /* autoplay blocked: the button lets the visitor start it */
+    }
+
+    btn.addEventListener("click", function () {
+      if (audio.paused) { remember(false); start(); }
+      else { remember(true); audio.pause(); }
+    });
+    audio.addEventListener("play", function () { setLabel(true); });
+    audio.addEventListener("pause", function () { setLabel(false); });
+    audio.addEventListener("ended", function () { setLabel(false); });
+    audio.addEventListener("error", function () { audio.pause(); bar.remove(); }); /* file missing: hide the controls */
+
+    setLabel(false);
+    document.body.appendChild(bar);
+    if (!wasOff()) start();
+  })();
 })();
